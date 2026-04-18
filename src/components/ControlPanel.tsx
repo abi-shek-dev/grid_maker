@@ -4,7 +4,8 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Palette, Grid3X3, Minus, Plus, RectangleHorizontal } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Palette, Grid3X3, Minus, Plus, RectangleHorizontal, Sun, Moon, Maximize2, Hash, Percent } from 'lucide-react';
 
 interface ControlPanelProps {
   isGrayscale: boolean;
@@ -17,6 +18,20 @@ interface ControlPanelProps {
   onGridWidthChange: (value: number) => void;
   aspectRatio: string;
   onAspectRatioChange: (ratio: string) => void;
+  hasDiagonals: boolean;
+  onDiagonalsToggle: (value: boolean) => void;
+  showLabels: boolean;
+  onLabelsToggle: (value: boolean) => void;
+  brightness: number;
+  onBrightnessChange: (value: number) => void;
+  contrast: number;
+  onContrastChange: (value: number) => void;
+  physicalWidth: string;
+  onPhysicalWidthChange: (value: string) => void;
+  physicalHeight: string;
+  onPhysicalHeightChange: (value: string) => void;
+  physicalUnit: string;
+  onPhysicalUnitChange: (value: string) => void;
 }
 
 const ControlPanel = ({
@@ -30,6 +45,20 @@ const ControlPanel = ({
   onGridWidthChange,
   aspectRatio,
   onAspectRatioChange,
+  hasDiagonals,
+  onDiagonalsToggle,
+  showLabels,
+  onLabelsToggle,
+  brightness,
+  onBrightnessChange,
+  contrast,
+  onContrastChange,
+  physicalWidth,
+  onPhysicalWidthChange,
+  physicalHeight,
+  onPhysicalHeightChange,
+  physicalUnit,
+  onPhysicalUnitChange,
 }: ControlPanelProps) => {
   const colorOptions = [
     { name: 'White', value: '#ffffff' },
@@ -100,8 +129,43 @@ const ControlPanel = ({
           />
         </div>
         <p className="text-xs text-muted-foreground">
-          Convert image to grayscale for easier drawing reference
+          Convert to grayscale or adjust brightness and contrast
         </p>
+
+        <div className="space-y-4 pt-2">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center text-xs">
+              <div className="flex items-center gap-1.2">
+                <Sun className="w-3 h-3 text-muted-foreground" />
+                <span className="text-muted-foreground">Brightness</span>
+              </div>
+              <span className="font-mono">{brightness}%</span>
+            </div>
+            <Slider
+              value={[brightness]}
+              onValueChange={(v) => onBrightnessChange(v[0])}
+              min={0}
+              max={200}
+              step={1}
+            />
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center text-xs">
+              <div className="flex items-center gap-1.2">
+                <Percent className="w-3 h-3 text-muted-foreground" />
+                <span className="text-muted-foreground">Contrast</span>
+              </div>
+              <span className="font-mono">{contrast}%</span>
+            </div>
+            <Slider
+              value={[contrast]}
+              onValueChange={(v) => onContrastChange(v[0])}
+              min={0}
+              max={200}
+              step={1}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Grid Size */}
@@ -133,10 +197,22 @@ const ControlPanel = ({
           value={[gridSize]}
           onValueChange={(value) => onGridSizeChange(value[0])}
           min={2}
-          max={20}
+          max={40}
           step={1}
           className="w-full"
         />
+      </div>
+
+      {/* Grid Appearance: Diagonals & Labels */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
+          <Label htmlFor="diagonals" className="text-xs font-medium cursor-pointer">Diagonals</Label>
+          <Switch id="diagonals" checked={hasDiagonals} onCheckedChange={onDiagonalsToggle} />
+        </div>
+        <div className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
+          <Label htmlFor="labels" className="text-xs font-medium cursor-pointer">Labels</Label>
+          <Switch id="labels" checked={showLabels} onCheckedChange={onLabelsToggle} />
+        </div>
       </div>
 
       {/* Grid Width */}
@@ -182,6 +258,52 @@ const ControlPanel = ({
             </Button>
           ))}
         </div>
+      </div>
+
+      {/* Physical Dimensions */}
+      <div className="space-y-4 pt-2 border-t border-white/10">
+        <div className="flex items-center gap-2">
+          <Maximize2 className="w-4 h-4 text-muted-foreground" />
+          <Label className="text-sm font-medium text-card-foreground">Physical Canvas Size</Label>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="space-y-1">
+            <Label className="text-[10px] text-muted-foreground uppercase">Width</Label>
+            <Input 
+              type="text" 
+              placeholder="0" 
+              value={physicalWidth} 
+              onChange={(e) => onPhysicalWidthChange(e.target.value)}
+              className="h-8 text-xs bg-white/5 border-white/10"
+            />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-[10px] text-muted-foreground uppercase">Height</Label>
+            <Input 
+              type="text" 
+              placeholder="0" 
+              value={physicalHeight} 
+              onChange={(e) => onPhysicalHeightChange(e.target.value)}
+              className="h-8 text-xs bg-white/5 border-white/10"
+            />
+          </div>
+          <div className="space-y-1">
+            <Label className="text-[10px] text-muted-foreground uppercase">Unit</Label>
+            <Select value={physicalUnit} onValueChange={onPhysicalUnitChange}>
+              <SelectTrigger className="h-8 text-xs bg-white/5 border-white/10">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="cm">cm</SelectItem>
+                <SelectItem value="in">in</SelectItem>
+                <SelectItem value="mm">mm</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <p className="text-[10px] text-muted-foreground italic">
+          Enter your paper size to get exact grid measurements
+        </p>
       </div>
     </Card>
   );
