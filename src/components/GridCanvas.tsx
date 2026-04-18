@@ -224,13 +224,13 @@ const GridCanvas = ({ image, isGrayscale, gridSize, gridColor, gridWidth, aspect
 
   return (
     <div className="space-y-4">
-      <Card className="p-4 bg-canvas-bg border-canvas-border">
+      <Card className="p-4 sm:p-8 glass-panel border-white/5 relative group">
         <div className="flex justify-center">
           <canvas
             ref={canvasRef}
             width={canvasSize.width}
             height={canvasSize.height}
-            className={`max-w-full h-auto rounded-lg shadow-medium border border-canvas-border ${
+            className={`max-w-full h-auto rounded-xl shadow-strong ring-1 ring-white/10 group-hover:shadow-neon transition-all duration-700 max-h-[70vh] object-contain ${
               image ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
             }`}
             onMouseDown={handleMouseDown}
@@ -256,7 +256,7 @@ const GridCanvas = ({ image, isGrayscale, gridSize, gridColor, gridWidth, aspect
 
       {/* Grid Dimensions Info */}
       {image && gridDimensions.cellWidth > 0 && (
-        <Card className="p-4 bg-card border-canvas-border">
+        <Card className="p-6 glass-panel border-white/5 hover-scale">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
               <Ruler className="w-4 h-4 text-accent-foreground" />
@@ -305,7 +305,7 @@ const GridCanvas = ({ image, isGrayscale, gridSize, gridColor, gridWidth, aspect
 
       {/* Download Button */}
       {image && (
-        <Card className="p-4 bg-card border-canvas-border">
+        <Card className="p-6 glass-panel border-white/5 hover-scale">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
@@ -318,10 +318,10 @@ const GridCanvas = ({ image, isGrayscale, gridSize, gridColor, gridWidth, aspect
             </div>
             <Button 
               onClick={handleDownload}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-gradient-primary hover:opacity-100 shadow-medium hover:shadow-neon transition-all text-primary-foreground hover-scale rounded-xl px-6"
             >
               <Download className="w-4 h-4 mr-2" />
-              Download
+              Download Canvas
             </Button>
           </div>
         </Card>

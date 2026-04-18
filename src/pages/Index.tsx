@@ -29,31 +29,35 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen flex flex-col relative overflow-hidden">
+      {/* Background radial effects */}
+      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-[120px] pointer-events-none" />
+      
       {/* Header */}
-      <header className="py-8 px-4 text-center border-b border-border/50">
+      <header className="py-12 px-4 text-center relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-primary flex items-center justify-center">
-              <Brush className="w-6 h-6 text-primary-foreground" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-primary flex items-center justify-center shadow-strong hover-scale">
+              <Brush className="w-7 h-7 text-primary-foreground" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="text-4xl sm:text-6xl font-bold text-gradient">
               Artist Grid Tool
             </h1>
-            <Badge variant="secondary" className="hidden sm:flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              Pro Drawing Reference
+            <Badge variant="secondary" className="hidden sm:flex items-center gap-1.5 px-3 py-1 text-sm bg-white/5 border-white/10 backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-primary" />
+              Pro Reference
             </Badge>
           </div>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Perfect your proportions with professional grid overlay. Upload any image, customize your grid, 
+          <p className="text-muted-foreground/80 max-w-2xl mx-auto text-lg leading-relaxed">
+            Perfect your proportions with a professional grid overlay. Upload any image, customize your grid, 
             and create accurate drawings with the time-tested grid method.
           </p>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         <div className="grid lg:grid-cols-4 gap-6">
           {/* Left Panel - Upload & Controls */}
           <div className="lg:col-span-1 space-y-6">

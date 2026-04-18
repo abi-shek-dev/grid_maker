@@ -54,7 +54,7 @@ const ControlPanel = ({
   ];
 
   return (
-    <Card className="p-6 bg-control-panel border-canvas-border space-y-6">
+    <Card className="p-6 glass-panel border-white/5 space-y-6">
       <div className="flex items-center gap-3 pb-2 border-b border-border">
         <div className="w-8 h-8 rounded-lg bg-gradient-accent flex items-center justify-center">
           <Grid3X3 className="w-4 h-4 text-accent-foreground" />
@@ -167,10 +167,10 @@ const ControlPanel = ({
             <Button
               key={color.value}
               variant="outline"
-              className={`h-12 w-full border-2 transition-all ${
+              className={`h-12 w-full border-2 transition-all hover-scale rounded-xl ${
                 gridColor === color.value
-                  ? 'border-primary ring-2 ring-primary/20'
-                  : 'border-border hover:border-muted-foreground'
+                  ? 'border-primary ring-2 ring-primary/20 shadow-neon'
+                  : 'border-white/10 hover:border-white/30'
               }`}
               style={{ backgroundColor: color.value }}
               onClick={() => onGridColorChange(color.value)}

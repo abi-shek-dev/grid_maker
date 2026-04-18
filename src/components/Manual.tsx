@@ -59,7 +59,7 @@ const Manual = () => {
 
   return (
     <div className="space-y-8">
-      <Card className="p-8 bg-card border-canvas-border">
+      <Card className="p-8 sm:p-12 glass-panel border-white/5 shadow-strong relative overflow-hidden">
         <div className="text-center mb-8">
           <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-primary flex items-center justify-center mb-4">
             <Lightbulb className="w-8 h-8 text-primary-foreground" />
@@ -74,8 +74,8 @@ const Manual = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {steps.map((step, index) => (
-            <div key={index} className="text-center space-y-3">
-              <div className="w-12 h-12 mx-auto rounded-xl bg-secondary flex items-center justify-center">
+            <div key={index} className="text-center space-y-3 p-6 rounded-2xl glass-panel border-white/5 hover:-translate-y-2 hover:shadow-neon transition-all duration-300 group">
+              <div className="w-12 h-12 mx-auto rounded-xl bg-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
                 <step.icon className="w-6 h-6 text-secondary-foreground" />
               </div>
               <Badge variant="outline" className="text-xs">
@@ -98,9 +98,9 @@ const Manual = () => {
           <h3 className="text-lg font-semibold text-card-foreground mb-4 text-center">
             Drawing Techniques
           </h3>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-6">
             {techniques.map((technique, index) => (
-              <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-muted/50">
+              <div key={index} className="flex items-start gap-4 p-5 rounded-xl glass-panel border-white/5 hover:border-primary/30 transition-colors">
                 <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
                   <technique.icon className="w-4 h-4 text-accent-foreground" />
                 </div>
@@ -113,7 +113,7 @@ const Manual = () => {
           </div>
         </div>
 
-        <div className="mt-6 p-4 rounded-lg bg-gradient-accent/10 border border-accent/20">
+        <div className="mt-8 p-6 rounded-xl bg-gradient-to-r from-accent-warm/10 to-accent-cool/10 border border-white/10 glass-panel">
           <div className="flex items-start gap-3">
             <div className="w-6 h-6 rounded-full bg-accent-warm flex items-center justify-center flex-shrink-0 mt-0.5">
               <Lightbulb className="w-3 h-3 text-white" />
