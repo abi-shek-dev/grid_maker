@@ -159,7 +159,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="py-6 px-4 text-center border-t border-border/50 mt-16">
         <p className="text-sm text-muted-foreground">
-          Copyright owned by Xe54z 2025
+          Copyright owned by Xe54z & Gracy 2025
         </p>
       </footer>
     </div>
